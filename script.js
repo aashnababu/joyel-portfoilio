@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Web3Forms Access Key
     // Get your free key instantly at https://web3forms.com (no password/account needed, just enter joyelroy10@gmail.com)
-    const WEB3FORMS_ACCESS_KEY = 'YOUR_ACCESS_KEY_HERE';
+    const WEB3FORMS_ACCESS_KEY = 'c0a4e5f3-222c-4d6c-ac86-483c2d27f967';
 
     if (contactForm && formStatus) {
         contactForm.addEventListener('submit', async (e) => {
@@ -145,58 +145,24 @@ document.addEventListener('DOMContentLoaded', () => {
             formStatus.className   = 'form-status';
 
             try {
-                let success = false;
+                const response = await fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        access_key: WEB3FORMS_ACCESS_KEY,
+                        name: name,
+                        email: email,
+                        message: message,
+                        subject: `New Portfolio Message from ${name}`
+                    })
+                });
 
-                if (WEB3FORMS_ACCESS_KEY && WEB3FORMS_ACCESS_KEY !== 'YOUR_ACCESS_KEY_HERE') {
-                    // Method 1: Web3Forms (Ultra reliable & fast)
-                    const response = await fetch('https://api.web3forms.com/submit', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Accept': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            access_key: WEB3FORMS_ACCESS_KEY,
-                            name: name,
-                            email: email,
-                            message: message,
-                            subject: `New Portfolio Message from ${name}`
-                        })
-                    });
+                const data = await response.json();
 
-                    const data = await response.json();
-                    if (data.success) {
-                        success = true;
-                    } else {
-                        throw new Error(data.message || 'Web3Forms error');
-                    }
-                } else {
-                    // Method 2: Fallback to FormSubmit.co
-                    const response = await fetch('https://formsubmit.co/ajax/joyelroy10@gmail.com', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Accept': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            name: name,
-                            email: email,
-                            message: message,
-                            _subject: `New Portfolio Inquiry from ${name}`,
-                            _template: 'table',
-                            _captcha: 'false'
-                        })
-                    });
-
-                    const data = await response.json();
-                    if (response.ok || (data && data.success === 'true')) {
-                        success = true;
-                    } else {
-                        throw new Error(data.message || 'FormSubmit error');
-                    }
-                }
-
-                if (success) {
+                if (data.success) {
                     // Reset button state
                     submitBtn.disabled  = false;
                     submitBtn.innerHTML = originalHTML;
@@ -208,18 +174,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     // Display the popup message
                     openSuccessModal();
+                } else {
+                    throw new Error(data.message || 'Submission failed');
                 }
             } catch (err) {
                 console.error('Submission error:', err);
                 submitBtn.disabled  = false;
                 submitBtn.innerHTML = originalHTML;
 
-                if (WEB3FORMS_ACCESS_KEY === 'YOUR_ACCESS_KEY_HERE') {
-                    formStatus.innerHTML = 'Form service is temporarily down. Get a free key at <a href="https://web3forms.com" target="_blank" style="color:var(--accent-gold);text-decoration:underline;">web3forms.com</a> and paste it in script.js.';
-                } else {
-                    formStatus.textContent = 'Could not send message. Please email directly at joyelroy10@gmail.com';
-                }
-                formStatus.className = 'form-status error';
+                formStatus.textContent = 'Could not send message. Please try again or email directly at joyelroy10@gmail.com';
+                formStatus.className   = 'form-status error';
             }
         });
     }
