@@ -31,17 +31,17 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 3. Scroll Header Effect (frosted glass changes depth)
+    // 3. Scroll Header Effect (compact pill navbar adds scrolled class)
     const navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            navbar.style.padding = '0.75rem 0';
-            navbar.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.5)';
-        } else {
-            navbar.style.padding = '1.25rem 0';
-            navbar.style.boxShadow = 'none';
-        }
-    });
+    if (navbar) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 40) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    }
 
     // 4. Scroll Active Link Highlighter
     const sections = document.querySelectorAll('section');
@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const observerOptions = {
         root: null,
-        rootMargin: '-30% 0px -50% 0px', // triggers active class when section takes up the central viewport
+        rootMargin: '-30% 0px -50% 0px',
         threshold: 0
     };
 

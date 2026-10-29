@@ -179,25 +179,37 @@ body:hover .cursor-spotlight {
 }
 
 /* ==========================================
-   NAVIGATION BAR
+   NAVIGATION BAR (COMPACT FLOATING PILL)
    ========================================== */
 .navbar {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
+    top: 1.25rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 2.5rem);
+    max-width: 620px; /* Reduced length across the screen */
     z-index: 1000;
-    background-color: rgba(5, 5, 5, 0.8);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border-color);
+    background-color: rgba(12, 12, 16, 0.78);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 9999px;
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.7);
     transition: var(--transition-smooth);
+    padding: 0.6rem 1.6rem;
+}
+
+.navbar.scrolled {
+    top: 0.75rem;
+    background-color: rgba(8, 8, 11, 0.92);
+    border-color: rgba(212, 175, 55, 0.3);
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.85), 0 0 16px rgba(212, 175, 55, 0.1);
 }
 
 .nav-container {
-    max-width: 1300px;
-    margin: 0 auto;
-    padding: 1.25rem 2rem;
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -205,10 +217,10 @@ body:hover .cursor-spotlight {
 
 .logo {
     font-family: var(--font-display);
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     font-weight: 800;
     color: var(--text-primary);
-    letter-spacing: -0.03em;
+    letter-spacing: -0.02em;
 }
 
 .logo span {
@@ -217,26 +229,29 @@ body:hover .cursor-spotlight {
 
 .nav-links {
     display: flex;
-    gap: 2.5rem;
+    gap: 1.6rem;
+    align-items: center;
 }
 
 .nav-item {
-    font-size: 0.9rem;
-    font-weight: 400;
+    font-size: 0.85rem;
+    font-weight: 500;
     color: var(--text-secondary);
     letter-spacing: 0.03em;
     position: relative;
-    padding: 0.25rem 0;
+    padding: 0.2rem 0;
+    transition: var(--transition-snappy);
 }
 
 .nav-item::after {
     content: '';
     position: absolute;
-    bottom: 0;
+    bottom: -2px;
     left: 0;
     width: 0;
-    height: 1px;
+    height: 2px;
     background-color: var(--accent-gold);
+    border-radius: 2px;
     transition: var(--transition-smooth);
 }
 
@@ -251,17 +266,19 @@ body:hover .cursor-spotlight {
 .menu-toggle {
     display: none;
     flex-direction: column;
-    gap: 6px;
+    gap: 5px;
     background: none;
     border: none;
     cursor: pointer;
+    padding: 0.25rem;
 }
 
 .menu-toggle .bar {
-    width: 25px;
+    width: 22px;
     height: 2px;
     background-color: var(--text-primary);
     transition: var(--transition-smooth);
+    border-radius: 2px;
 }
 
 /* ==========================================
@@ -521,7 +538,7 @@ body:hover .cursor-spotlight {
 }
 
 /* ==========================================
-   SKILLS PAGE (SIMPLE DESIGN)
+   SKILLED TOOLS PAGE
    ========================================== */
 .skills-section {
     padding: 8rem 0;
@@ -529,68 +546,77 @@ body:hover .cursor-spotlight {
     border-top: 1px solid var(--border-color);
 }
 
-.skills-grid {
+.tools-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
 }
 
-.skill-card {
+.tool-card {
     background-color: var(--bg-secondary);
     border: 1px solid var(--border-color);
-    border-radius: 8px;
-    padding: 2.5rem;
+    border-radius: 12px;
+    padding: 2.5rem 2rem;
     transition: var(--transition-smooth);
     display: flex;
     flex-direction: column;
+    align-items: center;
+    text-align: center;
 }
 
-.skill-icon-wrapper {
-    width: 50px;
-    height: 50px;
-    background-color: rgba(255, 255, 255, 0.03);
+.tool-logo-wrapper {
+    width: 80px;
+    height: 80px;
+    background-color: rgba(255, 255, 255, 0.04);
     border: 1px solid var(--border-color);
-    border-radius: 8px;
+    border-radius: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 2rem;
-    color: var(--accent-gold);
+    margin-bottom: 1.75rem;
+    transition: var(--transition-smooth);
+    overflow: hidden;
+}
+
+.tool-logo-img {
+    width: 52px;
+    height: 52px;
+    object-fit: contain;
     transition: var(--transition-smooth);
 }
 
-.skill-svg {
-    width: 24px;
-    height: 24px;
-}
-
-.skill-name {
-    font-size: 1.25rem;
-    margin-bottom: 1rem;
+.tool-name {
+    font-size: 1.3rem;
+    margin-bottom: 0.75rem;
     font-weight: 700;
+    color: var(--text-primary);
 }
 
-.skill-desc {
+.tool-desc {
     font-size: 0.9rem;
     line-height: 1.6;
     color: var(--text-secondary);
 }
 
-.skill-card:hover {
+.tool-card:hover {
     border-color: var(--accent-gold);
     background-color: var(--bg-tertiary);
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    transform: translateY(-6px);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5), 0 0 20px rgba(212, 175, 55, 0.08);
 }
 
-.skill-card:hover .skill-icon-wrapper {
+.tool-card:hover .tool-logo-wrapper {
     background-color: rgba(212, 175, 55, 0.1);
     border-color: var(--accent-gold);
-    color: var(--accent-amber);
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.15);
+}
+
+.tool-card:hover .tool-logo-img {
+    transform: scale(1.1);
 }
 
 /* ==========================================
-   WORK PAGE (SIMPLE DESIGN)
+   WORK PAGE (CINEMATIC VIDEO SHOWCASE)
    ========================================== */
 .work-section {
     padding: 8rem 0;
@@ -600,22 +626,32 @@ body:hover .cursor-spotlight {
 
 .work-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 2.5rem;
+    margin-bottom: 3.5rem;
 }
 
 .work-card {
     background-color: var(--bg-primary);
     border: 1px solid var(--border-color);
-    border-radius: 8px;
+    border-radius: 12px;
     overflow: hidden;
-    cursor: pointer;
     transition: var(--transition-smooth);
+    display: flex;
+    flex-direction: column;
 }
 
-.work-img-container {
+.work-card:hover {
+    border-color: rgba(212, 175, 55, 0.4);
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7), 0 0 25px rgba(212, 175, 55, 0.08);
+}
+
+.work-media-container {
     position: relative;
     aspect-ratio: 16 / 9;
+    width: 100%;
+    background-color: #000;
     overflow: hidden;
 }
 
@@ -624,83 +660,154 @@ body:hover .cursor-spotlight {
     height: 100%;
     object-fit: cover;
     transition: var(--transition-smooth);
+    display: block;
 }
 
-.work-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(5, 5, 5, 0.7);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: var(--transition-smooth);
+.work-card:hover .work-img {
+    transform: scale(1.05);
+    filter: brightness(1.08);
 }
 
-.work-play-btn {
-    width: 56px;
-    height: 56px;
-    background-color: var(--accent-gold);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--bg-primary);
-    transform: scale(0.8);
-    transition: var(--transition-smooth);
-    box-shadow: 0 0 20px var(--border-glow);
-}
 
-.play-svg {
-    width: 24px;
-    height: 24px;
-    fill: currentColor;
-}
 
 .work-info {
     padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
 }
 
 .work-category {
-    display: block;
+    display: inline-block;
     font-size: 0.75rem;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.12em;
     color: var(--accent-gold);
-    margin-bottom: 0.75rem;
-    font-weight: 500;
+    margin-bottom: 0.6rem;
+    font-weight: 600;
 }
 
 .work-title {
     font-size: 1.35rem;
     margin-bottom: 0.75rem;
     font-weight: 700;
+    line-height: 1.3;
 }
 
 .work-desc {
-    font-size: 0.9rem;
+    font-size: 0.92rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 1.75rem;
+    flex-grow: 1;
 }
 
-/* Work Card Hover Effects */
-.work-card:hover {
-    border-color: var(--accent-gold);
-    transform: translateY(-5px);
+.work-actions {
+    display: flex;
+    align-items: center;
+    margin-top: auto;
+}
+
+.btn-yt-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background-color: var(--accent-gold);
+    color: var(--bg-primary);
+    font-weight: 600;
+    font-size: 0.86rem;
+    padding: 0.7rem 1.35rem;
+    border-radius: 6px;
+    border: 1px solid transparent;
+    transition: var(--transition-smooth);
+    letter-spacing: 0.03em;
+}
+
+.btn-yt-action:hover {
+    background-color: var(--accent-amber);
+    box-shadow: 0 0 22px rgba(212, 175, 55, 0.45);
+    transform: translateY(-2px);
+    color: var(--bg-primary);
+}
+
+.btn-sm {
+    padding: 0.55rem 1.15rem;
+    font-size: 0.82rem;
+    border-radius: 5px;
+    gap: 0.4rem;
+}
+
+.action-icon {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.work-external-link:hover {
+    color: var(--accent-gold);
+    border-color: rgba(212, 175, 55, 0.3);
+    background: rgba(212, 175, 55, 0.05);
+}
+
+/* YouTube Channel Showcase Banner */
+.channel-showcase {
+    background: linear-gradient(135deg, rgba(18, 18, 24, 0.95) 0%, rgba(10, 10, 14, 0.98) 100%);
+    border: 1px solid rgba(212, 175, 55, 0.25);
+    border-radius: 12px;
+    padding: 2.5rem 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+    position: relative;
+    overflow: hidden;
 }
 
-.work-card:hover .work-img {
-    transform: scale(1.05);
+.channel-showcase::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background-color: var(--accent-gold);
 }
 
-.work-card:hover .work-overlay {
-    opacity: 1;
+.channel-eyebrow {
+    display: block;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--accent-gold);
+    margin-bottom: 0.5rem;
+    font-weight: 600;
 }
 
-.work-card:hover .work-play-btn {
-    transform: scale(1);
+.channel-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+}
+
+.channel-desc {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    max-width: 600px;
+    line-height: 1.6;
+}
+
+.btn-channel {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    white-space: nowrap;
+    font-weight: 600;
+    padding: 0.9rem 1.8rem;
+}
+
+.channel-yt-icon {
+    flex-shrink: 0;
 }
 
 /* ==========================================
@@ -831,6 +938,26 @@ body:hover .cursor-spotlight {
 }
 
 /* ==========================================
+   CONTACT SOCIAL ACCENTS
+   ========================================== */
+.social-accent-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-primary);
+    transition: var(--transition-snappy);
+}
+
+.social-accent-link:hover {
+    color: var(--accent-gold);
+}
+
+.contact-social-svg {
+    color: var(--accent-gold);
+    flex-shrink: 0;
+}
+
+/* ==========================================
    FOOTER
    ========================================== */
 .footer {
@@ -847,6 +974,8 @@ body:hover .cursor-spotlight {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
 }
 
 .copyright {
@@ -856,17 +985,29 @@ body:hover .cursor-spotlight {
 
 .social-links {
     display: flex;
-    gap: 2rem;
+    gap: 1.75rem;
+    align-items: center;
 }
 
 .social-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
     font-size: 0.85rem;
     color: var(--text-secondary);
+    transition: var(--transition-snappy);
+}
+
+.social-link svg {
+    flex-shrink: 0;
 }
 
 .social-link:hover {
     color: var(--accent-gold);
+    transform: translateY(-2px);
 }
+
+
 
 /* ==========================================
    MEDIA QUERIES (RESPONSIVE)
@@ -884,6 +1025,22 @@ body:hover .cursor-spotlight {
 }
 
 @media (max-width: 900px) {
+    .tools-grid {
+        grid-template-columns: 1fr;
+        max-width: 420px;
+        margin: 0 auto;
+    }
+
+    .work-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .channel-showcase {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 2rem;
+    }
+
     /* Responsive Grid Layouts */
     .about-grid, .contact-grid {
         grid-template-columns: 1fr;
@@ -928,38 +1085,55 @@ body:hover .cursor-spotlight {
     }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 680px) {
+    .navbar {
+        width: calc(100% - 1.5rem);
+        max-width: none;
+        top: 0.75rem;
+        padding: 0.65rem 1.25rem;
+        border-radius: 24px;
+    }
+
     .nav-links {
-        display: none; /* Mobile menu implementation in JS */
+        display: none;
         flex-direction: column;
         position: absolute;
-        top: 100%;
+        top: calc(100% + 0.6rem);
         left: 0;
         width: 100%;
-        background-color: rgba(5, 5, 5, 0.95);
-        border-bottom: 1px solid var(--border-color);
-        padding: 2rem;
-        gap: 1.5rem;
+        background-color: rgba(10, 10, 14, 0.96);
+        border: 1px solid var(--border-color);
+        border-radius: 18px;
+        padding: 1.5rem;
+        gap: 1.25rem;
         text-align: center;
-        backdrop-filter: blur(12px);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.85);
     }
-    
+
     .nav-links.active {
         display: flex;
     }
-    
+
     .menu-toggle {
         display: flex;
     }
-    
+
     .menu-toggle.active .bar:nth-child(1) {
-        transform: translateY(8px) rotate(45deg);
+        transform: translateY(7px) rotate(45deg);
     }
-    
+
     .menu-toggle.active .bar:nth-child(2) {
-        transform: translateY(-8px) rotate(-45deg);
+        transform: translateY(-7px) rotate(-45deg);
     }
-    
+
+    .work-external-link {
+        margin-left: 0;
+        width: 100%;
+        justify-content: center;
+    }
+
     .hero-name {
         font-size: 3.5rem;
     }
@@ -970,5 +1144,15 @@ body:hover .cursor-spotlight {
     
     .section-title {
         font-size: 2.2rem;
+    }
+
+    .footer-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .social-links {
+        flex-wrap: wrap;
+        justify-content: center;
     }
 }
