@@ -615,6 +615,22 @@ body:hover .cursor-spotlight {
     transform: scale(1.1);
 }
 
+.tool-logo-svg {
+    transition: var(--transition-smooth);
+}
+
+.tool-card:hover .tool-logo-svg {
+    transform: scale(1.1);
+}
+
+.capcut-logo-bg {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.tool-card:hover .capcut-logo-bg {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
 /* ==========================================
    WORK PAGE (CINEMATIC VIDEO SHOWCASE)
    ========================================== */
